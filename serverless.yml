@@ -12,15 +12,17 @@ functions:
     handler: ./src/lambdas/createUser.handler
     events:
       - http:
-          path: /v1/getUserData
+          path: /users/create
           method: post
           cors: true
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - dynamodb:PutItem
-        Resource:
-          Fn::GetAtt: [UsersTable, Arn]
+
+  getUsers:
+    handler: ./src/lambdas/getUsers.handler
+    events:
+      - http:
+          path: /users
+          method: get
+          cors: true
 
 resources:
   Resources:
@@ -38,4 +40,3 @@ resources:
 
 plugins:
   - serverless-plugin-typescript
-  - serverless-iam-roles-per-function
