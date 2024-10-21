@@ -1,7 +1,10 @@
 {
   "name": "boilerplate-serverless-Lambda-Dynamo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Template designed for interview purposes. It is built with TypeScript, Node.js, Serverless Framework, and Dynamoose, using AWS Lambda and DynamoDB for the CRUD operations.",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "dynamoose": "^4.0.2"
   },
