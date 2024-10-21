@@ -1,0 +1,41 @@
+app: boilerplateservelesslambadadynamo
+service: boilerplate-serverless-Lambda-Dynamo
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    TABLE_NAME: UsersTable
+
+functions:
+  createUser:
+    handler: ./src/lambdas/createUser.handler
+    events:
+      - http:
+          path: /v1/getUserData
+          method: post
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource:
+          Fn::GetAtt: [UsersTable, Arn]
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Users
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-iam-roles-per-function
