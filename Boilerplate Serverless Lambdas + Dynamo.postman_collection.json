@@ -1,0 +1,91 @@
+{
+  "info": {
+    "_postman_id": "ae0bec62-0cc2-4748-bfa2-a2326b9bdb9c",
+    "name": "Boilerplate Serverless Lambdas + Dynamo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "10015398"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Remera\",\n    \"email\": \"remera@gmail.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://oentl7eagg.execute-api.us-east-1.amazonaws.com/dev/users/create"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "https://oentl7eagg.execute-api.us-east-1.amazonaws.com/dev/users/getUsers"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userId\": \"5157c709-b1ea-4b6b-a23d-411b2ca80419\" \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://oentl7eagg.execute-api.us-east-1.amazonaws.com/dev/users/deleteUser"
+      },
+      "response": []
+    },
+    {
+      "name": "Update User",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "        {\n            \"name\": \"Manzana\",\n            \"userId\": \"bd03867d-a5a4-47d2-9c23-b480f736c80b\"\n        }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://oentl7eagg.execute-api.us-east-1.amazonaws.com/dev/users/updateUser"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Users by Transaction",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n    {\n        \"name\": \"Rodilla\",\n        \"email\": \"rodilla@gmail.com\"\n    },\n    {\n        \"name\": \"Rodilla\",\n        \"email\": \"rodilla@gmail.com\"\n    }\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://oentl7eagg.execute-api.us-east-1.amazonaws.com/dev/users/createUsersTransaction"
+      },
+      "response": []
+    }
+  ]
+}
