@@ -25,7 +25,7 @@ package:
 
 functions:
   createUser:
-    handler: ./src/lambdas/createUser.handler
+    handler: src/lambdas/createUser.handler
     events:
       - http:
           path: /users/create
@@ -33,7 +33,7 @@ functions:
           cors: true
 
   getUsers:
-    handler: ./src/lambdas/getUsers.handler
+    handler: src/lambdas/getUsers.handler
     events:
       - http:
           path: /users/getUsers
@@ -41,7 +41,7 @@ functions:
           cors: true
 
   deleteUser:
-    handler: ./src/lambdas/deleteUser.handler
+    handler: src/lambdas/deleteUser.handler
     events:
       - http:
           path: /users/deleteUser
@@ -49,7 +49,7 @@ functions:
           cors: true
 
   updateUser:
-    handler: ./src/lambdas/updateUser.handler
+    handler: src/lambdas/updateUser.handler
     events:
       - http:
           path: /users/updateUser
@@ -57,7 +57,7 @@ functions:
           cors: true
 
   createUsersTransaction:
-    handler: ./src/lambdas/createUsersTransaction.handler
+    handler: src/lambdas/createUsersTransaction.handler
     events:
       - http:
           path: /users/createUsersTransaction
