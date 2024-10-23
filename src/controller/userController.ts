@@ -6,27 +6,36 @@ export class UserController {
   async createUser(userData: { name: string; email: string }) {
     try {
       const user = new User({ userId: uuidv4(), ...userData });
-      return await user.save({ overwrite: false, return: "item" });
+      await user.save({
+        overwrite: false,
+        return: "item",
+      });
     } catch (error) {
-      throw new Error("Failed to create User");
+      throw new Error(`Failed to create User ${error}`);
     }
   }
 
   async deleteUser(userData: { userId: string }) {
     try {
       const user = new User(userData);
-      return await user.delete();
+      await user.delete();
+      return user;
     } catch (error) {
-      throw new Error("Failed to delete User");
+      throw new Error(`Failed to delete User ${error}`);
     }
   }
 
-  async updateUser(userData: { id: string; name?: string; email?: string }) {
+  async updateUser(userData: {
+    userId: string;
+    name?: string;
+    email?: string;
+  }) {
     try {
       const user = new User(userData);
-      return await user.save();
+      await user.save();
+      return user;
     } catch (error) {
-      throw new Error("Failed to update User");
+      throw new Error(`Failed to update User ${error}`);
     }
   }
 
@@ -34,7 +43,7 @@ export class UserController {
     try {
       return await User.scan().exec();
     } catch (error) {
-      throw new Error("Failed to get Users");
+      throw new Error(`Failed to get Users ${error}`);
     }
   }
 
@@ -48,9 +57,11 @@ export class UserController {
         });
       });
 
-      await dynamoose.transaction(transactionItems);
+      const response = await dynamoose.transaction(transactionItems);
+      console.log({ response });
+      return response;
     } catch (error) {
-      throw new Error("Failed to create Users by transaction");
+      throw new Error(`Failed to create Users by transaction ${error}`);
     }
   }
 }

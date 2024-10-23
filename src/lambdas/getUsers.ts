@@ -1,6 +1,9 @@
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { UserController } from "../controller/userController";
 
-export const handler = async (event: any) => {
+export const handler = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
   console.log("Event: ", JSON.stringify(event));
   try {
     const userCtrl = new UserController();

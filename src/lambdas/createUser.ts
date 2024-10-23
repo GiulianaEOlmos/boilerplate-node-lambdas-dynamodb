@@ -1,10 +1,15 @@
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { UserController } from "../controller/userController";
 
-export const handler = async (event: any) => {
-  console.log("Event: ", JSON.stringify(event));
+export const handler = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  const userData = JSON.parse(event.body || "{}");
   try {
     const userCtrl = new UserController();
-    const response = await userCtrl.createUser(event.body);
+    const response = await userCtrl.createUser(userData);
+    console.log("User created:", response);
+    console.log({ userData });
     return {
       statusCode: 200,
       body: JSON.stringify({ message: `User created`, response }),
