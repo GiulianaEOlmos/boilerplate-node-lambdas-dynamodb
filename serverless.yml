@@ -4,8 +4,24 @@ service: boilerplate-serverless-Lambda-Dynamo
 provider:
   name: aws
   runtime: nodejs18.x
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:CreateTable
+        - dynamodb:DescribeTable
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:GetItem
+        - dynamodb:Scan
+        - dynamodb:Query
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TABLE_NAME}"
   environment:
     TABLE_NAME: UsersTable
+
+package:
+  individually: true
 
 functions:
   createUser:
@@ -20,8 +36,32 @@ functions:
     handler: ./src/lambdas/getUsers.handler
     events:
       - http:
-          path: /users
+          path: /users/getUsers
           method: get
+          cors: true
+
+  deleteUser:
+    handler: ./src/lambdas/deleteUser.handler
+    events:
+      - http:
+          path: /users/deleteUser
+          method: delete
+          cors: true
+
+  updateUser:
+    handler: ./src/lambdas/updateUser.handler
+    events:
+      - http:
+          path: /users/updateUser
+          method: put
+          cors: true
+
+  createUsersTransaction:
+    handler: ./src/lambdas/createUsersTransaction.handler
+    events:
+      - http:
+          path: /users/createUsersTransaction
+          method: post
           cors: true
 
 resources:
@@ -37,6 +77,3 @@ resources:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-
-plugins:
-  - serverless-plugin-typescript

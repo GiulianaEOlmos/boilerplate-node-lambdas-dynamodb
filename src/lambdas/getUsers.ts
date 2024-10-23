@@ -1,6 +1,7 @@
 import { UserController } from "../controller/userController";
 
-export const handler = async () => {
+export const handler = async (event: any) => {
+  console.log("Event: ", JSON.stringify(event));
   try {
     const userCtrl = new UserController();
     const users = await userCtrl.getUsers();
