@@ -7,10 +7,10 @@ export const handler = async (
   const userData = JSON.parse(event.body || "[]");
   try {
     const userCtrl = new UserController();
-    const response = await userCtrl.createUsersByTransaction(userData);
+    await userCtrl.createUsersByTransaction(userData);
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Users created`, response }),
+      body: JSON.stringify({ message: `Users created` }),
     };
   } catch (error) {
     console.error("Error creating Users:", error);

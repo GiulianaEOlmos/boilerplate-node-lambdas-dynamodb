@@ -77,3 +77,6 @@ resources:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+
+plugins:
+  - serverless-offline

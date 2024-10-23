@@ -4,12 +4,11 @@ import { UserController } from "../controller/userController";
 export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  console.log("Event: ", JSON.stringify(event));
-  const { userId } = JSON.parse(event.body || "{}");
+  const userData = JSON.parse(event.body || "{}");
 
   try {
     const userCtrl = new UserController();
-    const response = await userCtrl.deleteUser(userId);
+    const response = await userCtrl.deleteUser(userData);
     return {
       statusCode: 200,
       body: JSON.stringify({ message: `User deleted`, response }),

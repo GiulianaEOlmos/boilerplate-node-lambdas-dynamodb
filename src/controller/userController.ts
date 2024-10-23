@@ -17,9 +17,17 @@ export class UserController {
 
   async deleteUser(userData: { userId: string }) {
     try {
-      const user = new User(userData);
-      await user.delete();
-      return user;
+      console.log("Deleting User with ID:", userData.userId);
+      const myUser = await User.get(userData.userId);
+
+      console.log(`User with ID ${userData.userId}:`, myUser);
+
+      if (!myUser) {
+        throw new Error(`User with ID ${userData.userId} not found`);
+      }
+
+      await myUser.delete();
+      return userData.userId;
     } catch (error) {
       throw new Error(`Failed to delete User ${error}`);
     }
@@ -31,9 +39,21 @@ export class UserController {
     email?: string;
   }) {
     try {
-      const user = new User(userData);
-      await user.save();
-      return user;
+      const myUser = await User.get(userData.userId, { return: "item" });
+
+      if (!myUser) {
+        throw new Error(`User with ID ${userData.userId} not found`);
+      }
+
+      if (userData.name) {
+        myUser.name = userData.name;
+      }
+
+      if (userData.email) {
+        myUser.email = userData.email;
+      }
+      await myUser.save();
+      return myUser;
     } catch (error) {
       throw new Error(`Failed to update User ${error}`);
     }
@@ -57,9 +77,7 @@ export class UserController {
         });
       });
 
-      const response = await dynamoose.transaction(transactionItems);
-      console.log({ response });
-      return response;
+      await dynamoose.transaction(transactionItems);
     } catch (error) {
       throw new Error(`Failed to create Users by transaction ${error}`);
     }
