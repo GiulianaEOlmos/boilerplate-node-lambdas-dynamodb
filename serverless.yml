@@ -18,7 +18,7 @@ provider:
         - dynamodb:Query
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TABLE_NAME}"
   environment:
-    TABLE_NAME: UsersTable
+    TABLE_NAME: Users
 
 package:
   individually: true
@@ -69,6 +69,7 @@ resources:
     UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
+        TableName: Users
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
